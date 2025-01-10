@@ -11,11 +11,11 @@ import { Loader2 } from 'lucide-react'
 const timeframes = ["1年後", "3年後", "10年後", "50年後"]
 
 export default function Home() {
-  const [keyword, setKeyword] = useState("")
-  const [timeframe, setTimeframe] = useState("1年後")
-  const [results, setResults] = useState<any[]>([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+const [keyword, setKeyword] = useState<string>(""); // 型を string に
+const [timeframe, setTimeframe] = useState<string>("1年後"); // 型を string に
+const [results, setResults] = useState<json[]>([]); // 型を AIResult[] に変更
+const [isLoading, setIsLoading] = useState(false);
+const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
