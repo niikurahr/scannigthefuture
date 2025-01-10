@@ -7,13 +7,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { TimeframeChip } from "@/components/TimeframeChip"
 import { motion } from "framer-motion"
 import { Loader2 } from 'lucide-react'
+import { AIResult } from "@/app/api/generate/route";
 
 const timeframes = ["1年後", "3年後", "10年後", "50年後"]
 
 export default function Home() {
 const [keyword, setKeyword] = useState<string>(""); // 型を string に
 const [timeframe, setTimeframe] = useState<string>("1年後"); // 型を string に
-const [results, setResults] = useState<json[]>([]); // 型を AIResult[] に変更
+const [results, setResults] = useState<AIResult[]>([]); // 型を AIResult[] に変更
 const [isLoading, setIsLoading] = useState(false);
 const [error, setError] = useState<string | null>(null);
 
