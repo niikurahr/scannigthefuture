@@ -3,6 +3,12 @@ import { generateAIResponse } from "@/utils/ai";
 
 export const runtime = 'nodejs';
 
+interface Result {
+  title: string;
+  description: string;
+  source?: string;
+}
+
 export async function POST(req: NextRequest) {
   const { keyword, timeframe } = await req.json();
 
@@ -16,14 +22,14 @@ export async function POST(req: NextRequest) {
   }
 }
 
-function parseAIResponse(response: string): any[] {
-  const results = [];
+function parseAIResponse(response: string): Result[] {
+  const results: Result[] = [];
   const entries = response.split("\n\n");
 
   for (const entry of entries) {
     const lines = entry.split("\n");
     if (lines.length >= 2) {
-      const result: any = {
+      const result: Result = {
         title: lines[0].replace(/^- /, ""),
         description: lines[1],
       };

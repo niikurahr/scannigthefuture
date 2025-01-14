@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --max-warnings=0"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.726.0",
