@@ -13,20 +13,24 @@ const timeframes = ["1年後", "3年後", "10年後", "50年後"]
 
 export default function Home() {
   const [keyword, setKeyword] = useState("")
-  const [timeframe, setTimeframe] = useState("1年後")
+  const [selectedTimeframe, setSelectedTimeframe] = useState("1年後")
   const [results, setResults] = useState<AIResult[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!keyword || !selectedTimeframe) {
+      setError("キーワードと期間を選択してください。")
+      return
+    }
     setIsLoading(true)
     setError(null)
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ keyword, timeframe }),
+        body: JSON.stringify({ keyword, timeframe: selectedTimeframe }),
       })
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
@@ -42,6 +46,10 @@ export default function Home() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleTimeframeClick = (timeframe: string) => {
+    setSelectedTimeframe(timeframe)
   }
 
   return (
@@ -62,8 +70,8 @@ export default function Home() {
                 <TimeframeChip
                   key={tf}
                   timeframe={tf}
-                  isSelected={timeframe === tf}
-                  onClick={() => setTimeframe(tf)}
+                  isSelected={selectedTimeframe === tf}
+                  onClick={handleTimeframeClick}
                 />
               ))}
             </div>
