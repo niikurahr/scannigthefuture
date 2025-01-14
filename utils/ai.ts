@@ -4,8 +4,9 @@ interface BedrockResponse {
   completion: string;
 }
 
+const region = process.env.NEXT_PUBLIC_APP_AWS_REGION || process.env.APP_AWS_REGION || "us-east-1"; // 環境変数がない場合のフォールバック
 const bedrockClient = new BedrockRuntimeClient({
-  region: process.env.APP_AWS_REGION,
+  region: region,
 });
 
 export async function generateAIResponse(keyword: string, timeframe: string): Promise<string> {
