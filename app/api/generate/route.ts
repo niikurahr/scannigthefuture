@@ -3,7 +3,7 @@ import { generateAIResponse } from "@/utils/ai";
 
 export const runtime = 'nodejs';
 
-interface Result {
+export interface AIResult {
   title: string;
   description: string;
   source?: string;
@@ -22,14 +22,14 @@ export async function POST(req: NextRequest) {
   }
 }
 
-function parseAIResponse(response: string): Result[] {
-  const results: Result[] = [];
+function parseAIResponse(response: string): AIResult[] {
+  const results: AIResult[] = [];
   const entries = response.split("\n\n");
 
   for (const entry of entries) {
     const lines = entry.split("\n");
     if (lines.length >= 2) {
-      const result: Result = {
+      const result: AIResult = {
         title: lines[0].replace(/^- /, ""),
         description: lines[1],
       };

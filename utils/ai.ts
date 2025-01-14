@@ -8,7 +8,7 @@ const bedrockClient = new BedrockRuntimeClient({
   region: process.env.APP_AWS_REGION,
 });
 
-export async function generateAIResponse(keyword: string, timeframe: string) {
+export async function generateAIResponse(keyword: string, timeframe: string): Promise<string> {
   const prompt = `
 あなたは未来予測の専門家です。以下のキーワードと期間に基づいて、世界の未来変化の兆しを4つ探索してください。
 既存のトレンドの延長線上にはない、革新的な変化につながる可能性を持った事例や、未来に対するクリエイティブな発想を刺激する事例を収集してください。

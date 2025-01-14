@@ -7,16 +7,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { TimeframeChip } from "@/components/TimeframeChip"
 import { motion } from "framer-motion"
 import { Loader2 } from 'lucide-react'
-import { AIResult } from "@/app/api/generate/route";
+import { AIResult } from "@/app/api/generate/route"
 
 const timeframes = ["1年後", "3年後", "10年後", "50年後"]
 
 export default function Home() {
-const [keyword, setKeyword] = useState<string>(""); // 型を string に
-const [timeframe, setTimeframe] = useState<string>("1年後"); // 型を string に
-const [results, setResults] = useState<AIResult[]>([]); // 型を AIResult[] に変更
-const [isLoading, setIsLoading] = useState(false);
-const [error, setError] = useState<string | null>(null);
+  const [keyword, setKeyword] = useState("")
+  const [timeframe, setTimeframe] = useState("1年後")
+  const [results, setResults] = useState<AIResult[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,7 +32,7 @@ const [error, setError] = useState<string | null>(null);
         throw new Error(`HTTP error! status: ${response.status}`)
       }
       const data = await response.json()
-      if (data.error) {
+      if ('error' in data) {
         throw new Error(data.error)
       }
       setResults(data)
