@@ -66,15 +66,19 @@ export async function generateAIResponse(keyword: string, timeframe: string): Pr
   });
 
   try {
+    console.log("Sending request to Bedrock with region:", region);
     const response = await bedrockClient.send(command);
     const responseBody: BedrockResponse = JSON.parse(new TextDecoder().decode(response.body));
     return responseBody.content[0].text;
   } catch (error) {
     console.error("Error calling Bedrock:", error);
     if (error instanceof Error) {
+      console.error("Error details:", error.message);
       throw new Error(`AI生成に失敗しました: ${error.message}`);
     } else {
+      console.error("Unknown error type:", error);
       throw new Error("AI生成中に予期せぬエラーが発生しました。");
     }
   }
 }
+
