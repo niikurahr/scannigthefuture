@@ -4,7 +4,7 @@ interface BedrockResponse {
   completion: string;
 }
 
-const region = process.env.NEXT_PUBLIC_APP_AWS_REGION || process.env.APP_AWS_REGION || "us-east-1"; // 環境変数がない場合のフォールバック
+const region = process.env.NEXT_PUBLIC_APP_AWS_REGION || process.env.APP_AWS_REGION || "ap-northeast-1"; // 環境変数がない場合のフォールバック
 const bedrockClient = new BedrockRuntimeClient({
   region: region,
 });
@@ -24,7 +24,7 @@ export async function generateAIResponse(keyword: string, timeframe: string): Pr
 `;
 
   const command = new InvokeModelCommand({
-    modelId: "anthropic.claude-3-sonnet-20240229-v1:0",
+    modelId: "anthropic.claude-3-5-sonnet-20240620-v1:0",
     contentType: "application/json",
     accept: "application/json",
     body: JSON.stringify({
